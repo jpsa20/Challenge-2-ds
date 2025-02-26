@@ -69,8 +69,8 @@ class Controller(Node):
         return SetParametersResult(successful=True)
 
 # Main
-if __name__ == '__main__':
-    rclpy.init()
+def main(args=None):
+    rclpy.init(args=args)
     node = Controller()
     try:
         rclpy.spin(node)
@@ -79,3 +79,6 @@ if __name__ == '__main__':
     finally:
         node.destroy_node()
         rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
