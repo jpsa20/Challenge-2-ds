@@ -13,6 +13,7 @@ class SetPointPublisher(Node):
         self.declare_parameter('signal_type', 'sine')  # sine, square
         self.declare_parameter('amplitude', 2.0)
         self.declare_parameter('frequency', 1.0)
+
         self.timer_period = 0.1  # seconds
 
         # Create a publisher and timer for the signal
@@ -33,7 +34,6 @@ class SetPointPublisher(Node):
         amplitude = self.get_parameter('amplitude').value
         frequency = self.get_parameter('frequency').value
         signal_type = self.get_parameter('signal_type').value
-        
         if signal_type == 'sine':
             self.signal_msg.data = amplitude * np.sin(2 * np.pi * frequency * elapsed_time)
         elif signal_type == 'square':
@@ -45,7 +45,11 @@ class SetPointPublisher(Node):
         self.signal_publisher.publish(self.signal_msg)
     
     def parameters_callback(self, params):
+        for param in params:
+         if param.name == "signal_type":
+            self.get_logger().info(f"Parameter {param.name} changed to {param.value}")
         return SetParametersResult(successful=True)
+
 
 # Main
 def main(args=None):
@@ -61,3 +65,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
