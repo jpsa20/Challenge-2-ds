@@ -9,7 +9,7 @@ def generate_launch_description():
         emulate_tty=True,
         output='screen',
         parameters=[{
-            'sample_time': 0.01,
+            'sample_time': 0.03,
             'sys_gain_K': 2.16,
             'sys_tau_T': 0.05,
             'initial_conditions': 0.0,
@@ -17,7 +17,7 @@ def generate_launch_description():
     )
     
     sp_node = Node(
-        name="sp_gen",
+        name="set_point_node",
         package='motor_control',
         executable='set_point',
         emulate_tty=True,
@@ -36,7 +36,7 @@ def generate_launch_description():
         emulate_tty=True,
         output='screen',
         parameters=[{
-            'kp': 1.0,
+            'kp':1.0,
             'ki': 0.0,
             'kd': 0.0,
             'sample_time': 0.01,
