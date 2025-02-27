@@ -9,8 +9,8 @@ class Controller(Node):
         super().__init__('controller')
         
         # Declare parameters for control gains
-        self.declare_parameter('kp', 1.0)
-        self.declare_parameter('ki', 0.0)
+        self.declare_parameter('kp', 0.003)
+        self.declare_parameter('ki', 2.0)
         self.declare_parameter('kd', 0.0)
         self.declare_parameter('sample_time', 0.01)
         
@@ -71,14 +71,17 @@ class Controller(Node):
 # Main
 def main(args=None):
     rclpy.init(args=args)
+
     node = Controller()
+
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        rclpy.try_shutdown()
 
+#Execute Node
 if __name__ == '__main__':
     main()
